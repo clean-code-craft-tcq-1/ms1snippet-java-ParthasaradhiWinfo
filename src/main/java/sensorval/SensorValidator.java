@@ -2,30 +2,42 @@ package sensorval;
 
 import java.util.List;
 
-public class SensorValidator 
-{
-    public static boolean _give_me_a_good_name(double value, double nextValue, double maxDelta) {
-        if(nextValue - value > maxDelta) {
-            return false;
-        }
-        return true;
-    }
-    public static boolean validateSOCreadings(List<Double> values) {
-        int lastButOneIndex = values.size() - 1;
-        for(int i = 0; i < lastButOneIndex; i++) {
-            if(!_give_me_a_good_name(values.get(i), values.get(i + 1), 0.05)) {
-            return false;
-            }
-        }
-        return true;
-    }
-    public static boolean validateCurrentreadings(List<Double> values) {
-        int lastButOneIndex = values.size() - 1;
-        for(int i = 0; i < lastButOneIndex; i++) {
-            if(!_give_me_a_good_name(values.get(i), values.get(i + 1), 0.1)) {
-            return false;
-            }
-        }
-        return true;
-    }
+public class SensorValidator {
+	public static boolean isMaxDelta(double value, double nextValue, double maxDelta) {
+
+		if (nextValue - value > maxDelta) {
+			return false;
+		}
+		return true;
+	}
+
+	public static boolean validateSOCreadings(List<Double> values) {
+		return getReadings(values, 0.5);
+	}
+
+	public static boolean validateCurrentreadings(List<Double> values) {
+		return getReadings(values, 0.1);
+	}
+
+	public static boolean getReadings(List<Double> values, double maxDelta) {
+		int lastButOneIndex = values != null ? values.size() - 1 : 0;
+		for (int i = 0; i < lastButOneIndex; i++) {
+			if (!nullCheck(values, i)) {
+				if (!isMaxDelta(values.get(i), values.get(i + 1), maxDelta)) {
+					return false;
+				}
+			}
+
+		}
+		return true;
+	}
+
+	public static boolean nullCheck(List<Double> values, int index) {
+
+		if (values.get(index) == null || values.get(index + 1) == null) {
+			return true;
+		}
+
+		return false;
+	}
 }
