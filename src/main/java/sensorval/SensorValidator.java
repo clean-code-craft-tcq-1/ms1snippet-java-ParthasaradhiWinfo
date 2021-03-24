@@ -22,11 +22,10 @@ public class SensorValidator {
 	public static boolean getReadings(List<Double> values, double maxDelta) {
 		int lastButOneIndex = getLastButOneIndex(values);
 		for (int i = 0; i < lastButOneIndex; i++) {
-			if (!nullCheck(values, i)) {
+			if (!nullCheck(values, i) && !isMaxDelta(values.get(i), values.get(i + 1), maxDelta)) {
 
-				if (!isMaxDelta(values.get(i), values.get(i + 1), maxDelta)) {
-					return false;
-				}
+				return false;
+
 			}
 
 		}
