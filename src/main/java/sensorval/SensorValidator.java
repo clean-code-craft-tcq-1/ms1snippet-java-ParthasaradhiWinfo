@@ -34,11 +34,9 @@ public class SensorValidator {
 	}
 
 	public static boolean nullCheck(List<Double> values, int index) {
-
 		if (values.get(index) == null || values.get(index + 1) == null) {
 			return true;
 		}
-
 		return false;
 	}
 
