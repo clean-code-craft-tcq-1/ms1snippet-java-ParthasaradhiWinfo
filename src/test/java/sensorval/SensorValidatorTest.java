@@ -15,7 +15,7 @@ public class SensorValidatorTest
     {
         Double[] readings = {0.0, 0.01, 0.5, 0.51};
         List<Double> socs = Arrays.asList(readings);
-        assertFalse(SensorValidator.validateSOCreadings(socs));
+        assertTrue(SensorValidator.validateSOCreadings(socs));
     }
     @Test
     public void reportsErrorWhenCurrentjumps()
@@ -24,4 +24,21 @@ public class SensorValidatorTest
         List<Double> currents = Arrays.asList(readings);
         assertFalse(SensorValidator.validateCurrentreadings(currents));
     }
+    
+    @Test
+    public void reportsErrorWhenCurrentjumpsNullCheck()
+    {
+        Double[] readings = {0.03, 0.03, null, 0.33};
+        List<Double> currents = Arrays.asList(readings);
+        assertTrue(SensorValidator.validateCurrentreadings(currents));
+    }
+    
+    @Test
+    public void reportsErrorWhenSOCjumpsNullCheck()
+    {
+    	Double[] readings = {0.0, 0.01, null, 0.51};
+        List<Double> socs = Arrays.asList(readings);
+        assertTrue(SensorValidator.validateSOCreadings(socs));
+    }
+    
 }
